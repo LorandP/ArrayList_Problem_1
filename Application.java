@@ -12,12 +12,19 @@ public class Application {
         Collection listOfArrayList = new ArrayList<Integer>();
         Scanner input = new Scanner(System.in);
         int counterOfLine = 1;
+        boolean validEntry = false;
         int size = 0;
 
-        System.out.print("Enter the amount of lines that you want to add: ");
-        size = input.nextInt();
-        input.nextLine();
-        System.out.println();
+        while(!validEntry) {
+            try {
+                System.out.print("Enter the amount of lines that you want to add: ");
+                size = Integer.parseInt(input.nextLine());
+                validEntry = true;
+            }
+            catch (NumberFormatException ex){
+                System.out.println("Entered value is not a number.");
+            }
+        }
         String[] numbersAsStrings = new String[size];
 
         while (counterOfLine <= size) {
