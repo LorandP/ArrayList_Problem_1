@@ -19,29 +19,31 @@ public class Application {
             try {
                 System.out.format("Enter the numbers for line - %d - or type 'quit' to exit: ", counterOfLine);
                 String[] numbersAsStrings = input.nextLine().split("\\s");
+
                 for (int index = 0; index < numbersAsStrings.length; index++) {
                     if (numbersAsStrings[index].equals("quit")) {
                         value = numbersAsStrings[index];
                         break;
-                    }
-
-                    numberFromInput = Double.parseDouble(numbersAsStrings[index]);
-                    if (numberFromInput > Integer.MAX_VALUE) {
-                        System.out.println("Please enter a smaller number: ");
-                        counterOfLine--;
-                        break;
+                    } else {
+                        numberFromInput = Double.parseDouble(numbersAsStrings[index]);
+                        if (numberFromInput > Integer.MAX_VALUE) {
+                            System.out.println("Please enter a smaller number: ");
+                            counterOfLine--;
+                            break;
+                        } else {
+                            returnedList = insertingNumbers(numbersAsStrings);
+                        }
                     }
                 }
-                returnedList = insertingNumbers(numbersAsStrings);
                 for (int index = 0; index < returnedList.size(); index++) {
                     System.out.print(returnedList.get(index) + " ");
 
                 }
                 System.out.println();
+                counterOfLine++;
             } catch (NumberFormatException ex) {
                 System.out.println("Please enter a number or 'quit' if you want to exit!");
             }
-            counterOfLine++;
         }
 
         /*
@@ -122,22 +124,10 @@ public class Application {
     private ArrayList<Integer> insertingNumbers(String[] numbers) {
         ArrayList<Integer> lineNumbers = new ArrayList<Integer>();
 
-       // try {
-            String[] numbersAsStrings = numbers;
-            for (int index = 0; index < numbersAsStrings.length; index++) {
-              /*  numberFromInput = Double.parseDouble(numbersAsStrings[index]);
-                if (numberFromInput > Integer.MAX_VALUE) {
-                    System.out.println("Please enter a smaller number: ");
-                    counterOfLine--;
-                    break;
-                } else {
-                    lineNumbers.add(Integer.parseInt(numbersAsStrings[index]));
-                }*/
-                lineNumbers.add(Integer.parseInt(numbersAsStrings[index]));
-            }
-        //} catch (NumberFormatException ex) {
-         //   System.out.println("Please enter a number or 'quit' if you want to exit!");
-       // }
+        for (int index = 0; index < numbers.length; index++) {
+
+            lineNumbers.add(Integer.parseInt(numbers[index]));
+        }
         lineNumbers.add(0, lineNumbers.size());
         return lineNumbers;
     }
