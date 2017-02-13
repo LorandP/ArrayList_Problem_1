@@ -42,7 +42,8 @@ public class Application {
                 System.out.println();
                 counterOfLine++;
             } catch (NumberFormatException ex) {
-                System.out.println("Please enter a number or 'quit' if you want to exit!");
+                System.out.println("You have entered a number that is too big, or a string of characters. \n" +
+                        "Please enter the numbers for the line again.");
             }
         }
 
