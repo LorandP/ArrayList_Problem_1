@@ -118,7 +118,6 @@ public class Application {
     }
 
     private void verifyQuery(List<List<Integer>> linesOfNumbers, List<List<Integer>> listOfQueries) {
-        int indexOfNumber = 0;
         int position = 0;
 
         //System.out.println(listOfQueries.get(0).get(0) + " " +listOfQueries.get(0).get(1));
@@ -138,19 +137,16 @@ public class Application {
                         ArrayList<Integer> numbersList = (ArrayList<Integer>) linesOfNumbers.get(index2);
                         //ArrayList<Integer> query = (ArrayList<Integer>) listOfQueries.get(index);
                         //position = listOfQueries.get(2);
-                        for (Integer number : numbersList) {
+                        for (int index3 = 0; index < numbersList.size();index3++) {
                            // System.out.print(indexOfNumber + " - " + number + " | ");
                             //System.out.print(indexOfNumber + " ");
-                            if (listOfQueries.get(index).get(1).equals(indexOfNumber)) {
-                                System.out.println("Number = " + number);
+                            if (listOfQueries.get(index).get(1).equals(index3)) {
+                                System.out.println("Number = " + numbersList.get(index3));
                                 break;
-                            } if (!listOfQueries.get(index).equals(indexOfNumber)
-                                    && !listOfQueries.get(index).get(1).equals(indexOfNumber)){
+                            } else {
                                 System.out.println("ERROR!");
                             }
-                            indexOfNumber++;
                         }
-                        indexOfNumber = 0;
                     }
                 }
             }
