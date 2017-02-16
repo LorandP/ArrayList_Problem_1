@@ -82,7 +82,6 @@ public class Application {
         Scanner input = new Scanner(System.in);
         int size = 0;
         int counterOfQueries = 0;
-        boolean stringContainsNumbers = true;
 
         System.out.println("To query the lines, enter the number of the line and the the number of the position you want to query from.\n");
         size = Integer.parseInt(getInput(input, "Enter the amount of queries that you want to execute: "));
@@ -138,9 +137,7 @@ public class Application {
      * @param listOfQueries  the list of arraylist that contain the queries.
      */
     private void verifyQuery(List<List<Integer>> linesOfNumbers, List<List<Integer>> listOfQueries) {
-        int position = 0;
-        boolean check = false;
-        int indexOfNumber = 0;
+        boolean check;
 
         try {
             for (int index = 0; index < listOfQueries.size(); index++) {
@@ -158,7 +155,6 @@ public class Application {
                             }
                         }
                     }
-                    indexOfNumber = 0;
                 }
                 if (check == false) {
                     System.out.println("ERROR!");
