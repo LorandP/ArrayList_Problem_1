@@ -9,24 +9,33 @@ import java.util.List;
 public class Application {
 
     private void arrayListProblem() {
+        List<List<Integer>> linesAndColumns;
+        List<List<Integer>> queries;
+
+        linesAndColumns = insertingLines();
+        queries = queryTheLines(linesAndColumns);
+        verifyQuery(linesAndColumns, queries);
+    }
+
+    private List<List<Integer>> insertingLines()
+    {
         List<List<Integer>> linesAndColumns = new ArrayList<List<Integer>>();
+        List<Integer> numberOfLines = new ArrayList<Integer>();
+        List<List<Integer>> queryList = new ArrayList<List<Integer>>();
         Scanner input = new Scanner(System.in);
         int counterOfLine = 1;
         int size = 0;
-        String sizeOfArray = "";
-        String text = "";
-        int counter = 1;
 
         size = Integer.parseInt(getInput(input, "Enter the amount of lines that you want to add: "));
-        //sizeOfArray = Integer.toString(size);
-        String[] numbersAsStrings;
+        numberOfLines.add(size);
+        linesAndColumns.add(numberOfLines);
 
         while (counterOfLine <= size) {
             try {
-                List<Integer> line = new ArrayList<Integer>();
 
+                List<Integer> line = new ArrayList<Integer>();
                 System.out.format("Enter the numbers for line %d : ", counterOfLine);
-                numbersAsStrings = input.nextLine().split("\\s");
+                String[] numbersAsStrings = input.nextLine().split("\\s");
 
                 for (int index = 0; index < numbersAsStrings.length; index++) {
                     if (numbersAsStrings[index].matches("[0-9]+")) {
@@ -38,35 +47,16 @@ public class Application {
                         break;
                     }
                 }
-
-
                 line.add(0, line.size());
                 linesAndColumns.add(line);
-                //line.add(0, size);
-                //linesAndColumns.add(0, line);
                 System.out.println();
                 counterOfLine++;
-
-
             } catch (NumberFormatException ex) {
                 System.out.format("You have entered a number that is too big. \n" +
                         "Please enter the numbers for line %d again.", counterOfLine);
             }
         }
-        List<List<Integer>> queryList = new ArrayList<List<Integer>>();
-        queryList = queryTheLines(linesAndColumns);
-        verifyQuery(linesAndColumns, queryList);
-        //  -------  TEST -----
-        //System.out.println(queryList.get(1));
-        /*
-        for (int index = 0; index < queryList.size(); index++) {
-            System.out.println(queryList.get(index));
-            /*ArrayList<Integer> list = (ArrayList<Integer>)linesAndColumns.get(index);
-                for (Integer obj : list){
-                        System.out.println(obj);
-                }
-        }*/
-
+     return linesAndColumns;
     }
 
     private List<List<Integer>> queryTheLines(List<List<Integer>> linesAndColumns) {
@@ -119,39 +109,33 @@ public class Application {
 
     private void verifyQuery(List<List<Integer>> linesOfNumbers, List<List<Integer>> listOfQueries) {
         int position = 0;
+        boolean check = false;
 
-        //System.out.println(listOfQueries.get(0).get(0) + " " +listOfQueries.get(0).get(1));
-        //System.out.println("Index 0 Value 0 = " + linesOfNumbers.get(0).get(0));
-        //System.out.println("Index 0 value 1 = " + linesOfNumbers.get(0).get(1));
+        System.out.println("Index 0 Value 0 = " + linesOfNumbers.get(0).get(0));
         try {
 
             for (int index = 0; index < listOfQueries.size(); index++) {
                 for (int index2 = 0; index2 < linesOfNumbers.size(); index2++) {
+
                     if (listOfQueries.get(index).get(0).equals(index2)) {
-                        //System.out.println(linesOfNumbers.get(index2));
-                        //System.out.println(index2);
-                        //System.out.println();
-                        //System.out.println(listOfQueries.get(index).get(1));
-
-
                         ArrayList<Integer> numbersList = (ArrayList<Integer>) linesOfNumbers.get(index2);
-                        //ArrayList<Integer> query = (ArrayList<Integer>) listOfQueries.get(index);
-                        //position = listOfQueries.get(2);
+
                         for (int index3 = 0; index < numbersList.size();index3++) {
-                           // System.out.print(indexOfNumber + " - " + number + " | ");
-                            //System.out.print(indexOfNumber + " ");
+                            System.out.println(numbersList.get(index));
                             if (listOfQueries.get(index).get(1).equals(index3)) {
                                 System.out.println("Number = " + numbersList.get(index3));
+                                check = true;
                                 break;
-                            } else {
-                                System.out.println("ERROR!");
                             }
+                        }
+                        if (check == false) {
+                            System.out.println("ERROR!");
                         }
                     }
                 }
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(e);
+            System.out.println(e + " al doilea");
         }
 
     }
