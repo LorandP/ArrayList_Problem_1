@@ -64,8 +64,6 @@ public class Application {
         Scanner input = new Scanner(System.in);
         int size = 0;
         int counterOfQueries = 0;
-        //int line = 0;
-        // int numberInLine = 0;
         boolean stringContainsNumbers = true;
 
         System.out.println("To query the lines, enter the number of the line and the the number of the position you want to query from.\n");
@@ -76,7 +74,6 @@ public class Application {
                 List<Integer> line = new ArrayList<Integer>();
                 System.out.print("Enter line and position: ");
                 String[] numberOfQueries = input.nextLine().split("\\s");
-                //System.out.format("Len= %d  [0]= %s  [1]= %s",numberOfQueries.length, numberOfQueries[0], numberOfQueries[1]);
 
                 System.out.println();
                 if (numberOfQueries.length > 2) {
@@ -87,8 +84,6 @@ public class Application {
                 for (int index = 0; index < numberOfQueries.length; index++) {
                     if (numberOfQueries[index].matches("[0-9]+")) {
                         line.add(Integer.parseInt(numberOfQueries[index]));
-                        //line = Integer.parseInt(numberOfQueries[0]);
-                        //numberInLine = Integer.parseInt(numberOfQueries[1]);
                     } else {
                         System.out.format("You have entered a string of characters. \n" +
                                 "Please enter the numbers again.\n");
