@@ -7,7 +7,11 @@ import java.util.List;
  * Created by Lori on 2/10/2017.
  */
 public class Application {
-
+    /**
+     * This method instantiates three other methods, the first is used to insert lines of numbers into an Array List.
+     * The second queries a specific line and number by their index from the Array list and the third verifies if the line
+     * and number requested by the second method exists and if it does it will display it.
+     */
     private void arrayListProblem() {
         List<List<Integer>> linesAndColumns;
         List<List<Integer>> queries;
@@ -17,8 +21,13 @@ public class Application {
         verifyQuery(linesAndColumns, queries);
     }
 
-    private List<List<Integer>> insertingLines()
-    {
+    /**
+     * This method is used to insert a number of lines from standard input and insert them into an arraylist and after that
+     * insert each arraylist into a list.
+     *
+     * @return the list of arraylist.
+     */
+    private List<List<Integer>> insertingLines() {
         List<List<Integer>> linesAndColumns = new ArrayList<List<Integer>>();
         List<Integer> numberOfLines = new ArrayList<Integer>();
         List<List<Integer>> queryList = new ArrayList<List<Integer>>();
@@ -42,7 +51,7 @@ public class Application {
                         line.add(Integer.parseInt(numbersAsStrings[index]));
                     } else {
                         System.out.format("You have entered a string of characters. \n" +
-                                "Please enter the numbers for line %d again.", counterOfLine);
+                                "Please enter the numbers for line %d again.\n", counterOfLine);
                         counterOfLine--;
                         break;
                     }
@@ -53,12 +62,21 @@ public class Application {
                 counterOfLine++;
             } catch (NumberFormatException ex) {
                 System.out.format("You have entered a number that is too big. \n" +
-                        "Please enter the numbers for line %d again.", counterOfLine);
+                        "Please enter the numbers for line %d again.\n", counterOfLine);
             }
         }
-     return linesAndColumns;
+        return linesAndColumns;
     }
 
+    /**
+     * This method is used to query the lines and numbers by their index from the list of arraylist.
+     * First asks for the number of queries, after which it asks for two numbers.
+     * One for the index of the line(arraylist) and one for the index of the number in that line and inserts them both into an arraylist,
+     * after which it inserts them into a list.
+     *
+     * @param linesAndColumns the list of arraylist.
+     * @return a list of arraylist filled with the queries.
+     */
     private List<List<Integer>> queryTheLines(List<List<Integer>> linesAndColumns) {
         List<List<Integer>> listOfQueries = new ArrayList<List<Integer>>();
         Scanner input = new Scanner(System.in);
@@ -71,19 +89,26 @@ public class Application {
 
         while (counterOfQueries < size) {
             try {
+
                 List<Integer> line = new ArrayList<Integer>();
                 System.out.print("Enter line and position: ");
                 String[] numberOfQueries = input.nextLine().split("\\s");
 
                 System.out.println();
-                if (numberOfQueries.length > 2) {
-                    System.out.println("Please enter no more then 2 numbers.");
-                    counterOfQueries--;
-                }
-
                 for (int index = 0; index < numberOfQueries.length; index++) {
                     if (numberOfQueries[index].matches("[0-9]+")) {
+                        if (numberOfQueries.length > 2) {
+                            System.out.println("Please enter no more then 2 numbers.");
+                            counterOfQueries--;
+                            break;
+                        }
+                        if (numberOfQueries.length < 2) {
+                            System.out.println("Please enter 2 numbers.");
+                            counterOfQueries--;
+                            break;
+                        }
                         line.add(Integer.parseInt(numberOfQueries[index]));
+
                     } else {
                         System.out.format("You have entered a string of characters. \n" +
                                 "Please enter the numbers again.\n");
@@ -91,62 +116,88 @@ public class Application {
                         break;
                     }
                 }
-                listOfQueries.add(line);
+                if (!line.isEmpty()) {
+                    listOfQueries.add(line);
+                }
+                counterOfQueries++;
             } catch (NumberFormatException e) {
-                System.out.format("You have entered a number that is too big.");
+                System.out.format("You have entered a number that is too big.\n");
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Please enter two numbers.");
             }
-            counterOfQueries++;
+
         }
         return listOfQueries;
     }
 
+    /**
+     * This method is used to verify the existence of the numbers that are requested by the query.
+     * If the numbers were found it display them in the order of the queries.
+     *
+     * @param linesOfNumbers the list of arraylist that contain all the numbers.
+     * @param listOfQueries  the list of arraylist that contain the queries.
+     */
     private void verifyQuery(List<List<Integer>> linesOfNumbers, List<List<Integer>> listOfQueries) {
         int position = 0;
         boolean check = false;
+        int indexOfNumber = 0;
 
-        System.out.println("Index 0 Value 0 = " + linesOfNumbers.get(0).get(0));
         try {
-
             for (int index = 0; index < listOfQueries.size(); index++) {
-                for (int index2 = 0; index2 < linesOfNumbers.size(); index2++) {
+                check = false;
 
+                for (int index2 = 1; index2 < linesOfNumbers.size(); index2++) {
                     if (listOfQueries.get(index).get(0).equals(index2)) {
                         ArrayList<Integer> numbersList = (ArrayList<Integer>) linesOfNumbers.get(index2);
 
-                        for (int index3 = 0; index < numbersList.size();index3++) {
-                            System.out.println(numbersList.get(index));
+                        for (int index3 = 0; index3 < numbersList.size(); index3++) {
                             if (listOfQueries.get(index).get(1).equals(index3)) {
                                 System.out.println("Number = " + numbersList.get(index3));
                                 check = true;
                                 break;
                             }
                         }
-                        if (check == false) {
-                            System.out.println("ERROR!");
-                        }
                     }
+                    indexOfNumber = 0;
+                }
+                if (check == false) {
+                    System.out.println("ERROR!");
                 }
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(e + " al doilea");
+            System.out.println();
         }
-
     }
 
+    /**
+     * This method is used to get the input from the user and use the isInteger method which verifies if the input
+     * is a number or not.
+     *
+     * @param input         the user input.
+     * @param promptMessage a message that will prompt before the user inputs a value.
+     * @return the input of the user in a string format.
+     */
     private String getInput(Scanner input, String promptMessage) {
         System.out.print(promptMessage);
         String text = "";
+
         while (true) {
             text = input.nextLine();
-            if (isInteger(text))
+            if (isInteger(text)) {
                 break;
-            ;
+            }
             System.out.print("Entered value is not a number.\n" + promptMessage);
+
         }
         return text;
     }
+
+    /**
+     * This method verifies if a string is a number.
+     *
+     * @param string a string which contains a number or an array of characters.
+     * @return true if it is a number and false otherwise.
+     */
 
     private boolean isInteger(String string) {
         try {
